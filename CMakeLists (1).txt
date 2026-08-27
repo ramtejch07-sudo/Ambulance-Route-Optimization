@@ -1,0 +1,17 @@
+# Collect all test source files (add more as you write them, e.g.
+# test_graph.cpp, test_routing.cpp, test_integration.cpp)
+file(GLOB TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+
+add_executable(run_tests ${TEST_SOURCES})
+
+target_link_libraries(run_tests
+  PRIVATE
+    ambulance_core
+    gtest_main
+)
+
+target_include_directories(run_tests PRIVATE ${CMAKE_SOURCE_DIR}/include)
+
+# Register with CTest so `ctest` (or `ctest --output-on-failure`) works
+include(GoogleTest)
+gtest_discover_tests(run_tests)
